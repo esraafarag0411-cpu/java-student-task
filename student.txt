@@ -1,0 +1,67 @@
+package school;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class Student implements Comparable<Student> {
+    private String name;
+    private int id;
+    private Map<String, Integer> courseGrades;
+
+    public Student(String name, int id) {
+        this.name = name;
+        this.id = id;
+        this.courseGrades = new LinkedHashMap<>();
+    }
+
+    // Add a course with grade
+    public void addCourse(String course, int grade) {
+        courseGrades.put(course, grade);
+    }
+
+    // Get grade of a specific course
+    public Integer getCourseGrade(String course) {
+        return courseGrades.get(course);
+    }
+
+    // Calculate average of all grades
+    public double getAverage() {
+        if (courseGrades.isEmpty()) return 0.0;
+        int sum = 0;
+        for (int g : courseGrades.values()) {
+            sum += g;
+        }
+        return sum * 1.0 / courseGrades.size();
+    }
+
+    // Display student information
+    public void displayInfo() {
+        System.out.println("Student: " + name + " (ID: " + id + ")");
+        System.out.println("Courses & Grades: " + courseGrades);
+        System.out.printf("Average: %.2f%n", getAverage());
+        System.out.println("-----");
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    // Compare students by average (descending)
+    @Override
+    public int compareTo(Student other) {
+        int cmp = Double.compare(other.getAverage(), this.getAverage()); // descending
+        if (cmp != 0) return cmp;
+
+        // If averages are equal, compare by name
+        cmp = this.name.compareToIgnoreCase(other.name);
+        if (cmp != 0) return cmp;
+
+        // If still equal, compare by ID
+        return Integer.compare(this.id, other.id);
+    }
+}
