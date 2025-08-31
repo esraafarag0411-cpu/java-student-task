@@ -1,0 +1,58 @@
+package school;
+
+import java.util.*;
+
+public class Classroom {
+    private String className;
+    private List<Student> students;
+
+    public Classroom(String className) {
+        this.className = className;
+        this.students = new ArrayList<>();
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    // Return the student with the highest average
+    public Student getTopStudent() {
+        return students.stream()
+                .max(Comparator.comparingDouble(Student::getAverage))
+                .orElse(null);
+    }
+
+    // Calculate average of the whole class
+    public double getClassAverage() {
+        if (students.isEmpty()) return 0.0;
+        double sum = 0;
+        for (Student s : students) {
+            sum += s.getAverage();
+        }
+        return sum / students.size();
+    }
+
+    // Display classroom info
+    public void displayClassInfo() {
+        System.out.println("Class: " + className);
+        for (Student s : students) {
+            s.displayInfo();
+        }
+        System.out.printf("Class Average: %.2f%n", getClassAverage());
+        Student top = getTopStudent();
+        if (top != null) {
+            System.out.println("Top Student: " + top.getName());
+        }
+    }
+
+    // Rank students by average
+    public void rankStudents() {
+        Collections.sort(students); // uses compareTo from Student
+        System.out.println("\nRanking in " + className + ":");
+        int rank = 1;
+        for (Student s : students) {
+            System.out.printf("%d. %s - Average: %.2f%n", rank, s.getName(), s.getAverage());
+            rank++;
+        }
+    }
+}

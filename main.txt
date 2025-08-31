@@ -1,0 +1,37 @@
+package school;
+
+public class Main {
+    public static void main(String[] args) {
+        Classroom classroom = new Classroom("Java OOP Class");
+
+        Student s1 = new Student("Esraa", 101);
+        Student s2 = new Student("Omar", 102);
+        Student s3 = new Student("Mona", 103);
+        Student s4 = new Student("Ahmed", 104);
+        Student s5 = new Student("Sara", 105);
+
+        s1.addCourse("Math", 100);
+        s1.addCourse("English", 97);
+
+        s2.addCourse("Math", 75);
+        s2.addCourse("Physics", 80);
+
+        s3.addCourse("English", 95);
+        s3.addCourse("Physics", 88);
+
+        s4.addCourse("Math", 70);
+        s4.addCourse("English", 60);
+
+        s5.addCourse("Math", 100);
+        s5.addCourse("English", 95);
+
+        classroom.addStudent(s1);
+        classroom.addStudent(s2);
+        classroom.addStudent(s3);
+        classroom.addStudent(s4);
+        classroom.addStudent(s5);
+
+        classroom.displayClassInfo();
+        classroom.rankStudents();
+    }
+}
